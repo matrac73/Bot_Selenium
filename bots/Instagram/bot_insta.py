@@ -20,8 +20,8 @@ import time as t
 
 driver = wd.Firefox() # défini le browser firefox par défaut
 insta_URL = "https://www.instagram.com/accounts/login/"
-insta_id = "tibo.hnq@yahoo.com"
-insta_pwd = "Tibonobo2397!"
+insta_id = "mon_email"
+insta_pwd = "mon_mdp"
 compte = "raid" # page à aller liker
 
 nb_img = 100 # entrer le nombre de photo à liker ( ATENTION A NE PAS DEPASSER 1000 PAR HEURE )
