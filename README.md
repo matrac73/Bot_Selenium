@@ -6,18 +6,18 @@ Objectif : Créer des bots afin d'interagir avec des site web
 ### Architecture GIT
 
     .
-    ├── .gitignore                            # avoid unecessary data exchange between git and local files
+    ├── .gitignore                      # avoid unecessary data exchange between git and local files
     ├── bots                                  
     │   ├── Kahoot                        
-    │   │   └── bot_kahoot.py                 # bot connecting several accounts simultaneously to one kahoot game
+    │   │   └── bot_kahoot.py           # bot connecting several accounts simultaneously to one kahoot game
     │   ├── Instagram
-    │   │   └── bot_insta.py                  # bot liking multiple posts on instagram
+    │   │   └── bot_insta.py            # bot liking multiple posts on instagram
     │   └── Dactylo
-    │       └── bot_dactylo.py                # bot typing very fast the words on a dactylography game online
-    ├── README.me                             # presents the GIT repository
+    │       └── bot_dactylo.py          # bot typing very fast the words on a dactylography game online
+    ├── README.me                       # presents the GIT repository
     └── drivers
-        ├── geckodriver.exe                   # browser driver for firefox
-        └── chromedriver.exe                  # browser driver for google chrome
+        ├── geckodriver.exe             # browser driver for firefox
+        └── chromedriver.exe            # browser driver for google chrome
 
 ## Setup du projet
 
