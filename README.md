@@ -8,6 +8,8 @@ Objectif : Créer des bots afin d'interagir avec des site web
     .
     ├── .gitignore                      # avoid unecessary data exchange between git and local files
     ├── bots                                  
+    |   ├── Contravention                        
+    │   │   └── bot_contravention.py    # bot detecting fined immatriculation plaques
     │   ├── Kahoot                        
     │   │   └── bot_kahoot.py           # bot connecting several accounts simultaneously to one kahoot game
     │   ├── Instagram
