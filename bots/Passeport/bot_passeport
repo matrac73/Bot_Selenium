@@ -1,0 +1,76 @@
+from selenium import webdriver as wd
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from twilio.rest import Client
+import csv
+import time
+import os
+import re
+
+### Améliorations
+# Explorer la suite du process pour préparer les étapes suivantes
+# IHM pour clients (pour qu'ils entrent leurs données)
+# 50e la place sg
+# Comment trouver des clients ? -> Télégram ?(Groupes)
+
+send = False
+
+class bcolors:
+    OK = '\033[92m' #GREEN
+    FAIL = '\033[91m' #RED
+    RESET = '\033[0m' #RESET COLOR
+
+account_sid = "AC373c86f1fe87c148490b3e32b39e37ab"
+auth_token  = "fde3efb918631e2fd77de8a95aa58473"
+client = Client(account_sid, auth_token)
+
+driver = wd.Firefox()
+marie_paris_URL = "https://teleservices.paris.fr/rdvtitres/jsp/site/Portal.jsp?page=appointmentsearch&view=search&category=titres"
+
+driver.get(marie_paris_URL)
+
+compteur = 0
+
+while True:
+    try :
+        compteur += 1
+
+        os.system("cls")
+        recherche = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, """//*[@id="advanced_search"]/div[5]/button[1]""")))
+        recherche.click()
+
+        jours = {
+            'lundi' : int(re.findall(r'-?\d+\.?\d*', WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, """//*[@id="advanced_search"]/div[4]/div/div/div[1]/label[1]"""))).text[7:])[0]),
+            'mardi' : int(re.findall(r'-?\d+\.?\d*', WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, """//*[@id="advanced_search"]/div[4]/div/div/div[1]/label[2]"""))).text[7:])[0]),
+            'mercredi' : int(re.findall(r'-?\d+\.?\d*', WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, """//*[@id="advanced_search"]/div[4]/div/div/div[1]/label[3]"""))).text[10:])[0]),
+            'jeudi' : int(re.findall(r'-?\d+\.?\d*', WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, """//*[@id="advanced_search"]/div[4]/div/div/div[1]/label[4]"""))).text[7:])[0]),
+            'vendredi' : int(re.findall(r'-?\d+\.?\d*', WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, """//*[@id="advanced_search"]/div[4]/div/div/div[2]/label[1]"""))).text[10:])[0]),
+            'samedi' : int(re.findall(r'-?\d+\.?\d*', WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, """//*[@id="advanced_search"]/div[4]/div/div/div[2]/label[2]"""))).text[8:])[0]),
+            'dimanche' : int(re.findall(r'-?\d+\.?\d*', WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, """//*[@id="advanced_search"]/div[4]/div/div/div[2]/label[3]"""))).text[10:])[0])
+            }
+
+        nb_places_disp = sum(jours.values())
+        timing = time.ctime(time.time())
+        
+        fichier = open('data_dispo.csv','a')
+        obj = csv.writer(fichier)
+        obj.writerow([str(nb_places_disp), timing])
+
+        fichier.close()
+
+        print("Créneaux disponibles actuellement : \n")
+        for i in jours.keys():
+            if jours[i] == 0:
+                print(f" - {bcolors.FAIL}"+i+f" {jours[i]}{bcolors.RESET}")
+            else:
+                print(f" - {bcolors.OK}"+i+f" {jours[i]}{bcolors.RESET}")
+                if send:
+                    message = client.messages.create(from_ = "+19383003964", to = "+33767887765", body = 'Créneau Passeport disponible !')
+                    print(message.sid)
+
+        time.sleep(2)
+    except:
+        print("trying :/ ...")
+        time.sleep(2)
+
