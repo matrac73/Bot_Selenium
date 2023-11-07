@@ -18,9 +18,9 @@ names_team = ["Nicolas Gaudemet",
 opts = wd.FirefoxOptions()
 opts.set_preference("dom.popup_maximum", nb_requêtes)
 driver = wd.Firefox(options=opts)
-noisylegrand_URL = "https://websearcher-dev.azurewebsites.net/"
+URL = "https://websearcher-dev.azurewebsites.net/"
 
-driver.get(noisylegrand_URL)
+driver.get(URL)
 
 XPATH_BOUTON_APPROFONDI = """//*[@id="component-4"]/div[2]/label[2]/input"""
 XPATH_BOUTON_RAPIDE = """//*[@id="component-4"]/div[2]/label[1]/input"""
