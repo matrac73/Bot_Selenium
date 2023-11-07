@@ -6,7 +6,7 @@ from data_partners import personnes
 import random as r
 import time as t
 
-nb_requêtes = 5
+nb_requêtes = 20
 
 opts = wd.FirefoxOptions()
 opts.set_preference("dom.popup_maximum", nb_requêtes)
