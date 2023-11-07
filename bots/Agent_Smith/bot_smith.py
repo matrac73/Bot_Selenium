@@ -6,7 +6,7 @@ from data_partners import personnes
 import random as r
 import time as t
 
-nb_requêtes = 10
+nb_requêtes = 5
 
 opts = wd.FirefoxOptions()
 opts.set_preference("dom.popup_maximum", nb_requêtes)
@@ -46,7 +46,9 @@ for i in range(nb_requêtes):
         EC.visibility_of_element_located((
             By.XPATH, XPATH_BOUTON_EFFACER)))
 
-    BOUTON_APPROFONDI.click()
+    # Choisir le type de recherche
+    BOUTON_RAPIDE.click()
+    # BOUTON_APPROFONDI.click()
 
     name = r.choice(personnes)
     question = f"Qui est {name} ?"
