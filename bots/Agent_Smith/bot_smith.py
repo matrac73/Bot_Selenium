@@ -47,8 +47,8 @@ for i in range(nb_requêtes):
             By.XPATH, XPATH_BOUTON_EFFACER)))
 
     # Choisir le type de recherche
-    BOUTON_RAPIDE.click()
-    # BOUTON_APPROFONDI.click()
+    # BOUTON_RAPIDE.click()
+    BOUTON_APPROFONDI.click()
 
     name = r.choice(personnes)
     question = f"Qui est {name} ?"
@@ -63,6 +63,9 @@ for i in range(nb_requêtes):
         driver.execute_script(
             "window.open('https://websearcher-dev.azurewebsites.net/', \
                 '_blank');"
+            )
+        driver.execute_script(
+            "document.body.style.transform = 'scale(0.5)';"
             )
 
     t.sleep(1)
