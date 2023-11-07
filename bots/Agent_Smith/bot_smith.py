@@ -23,6 +23,8 @@ XPATH_BOUTON_EFFACER = """//*[@id="component-7"]"""
 
 for i in range(nb_requêtes):
 
+    driver.execute_script("window.scrollTo(0, 0);")
+
     onglets = driver.window_handles
     driver.switch_to.window(onglets[i])
 
@@ -64,8 +66,7 @@ for i in range(nb_requêtes):
             "window.open('https://websearcher-dev.azurewebsites.net/', \
                 '_blank');"
             )
-        driver.execute_script(
-            "document.body.style.transform = 'scale(0.5)';"
-            )
+    else:
+        driver.execute_script("window.scrollTo(0, 0);")
 
     t.sleep(1)
