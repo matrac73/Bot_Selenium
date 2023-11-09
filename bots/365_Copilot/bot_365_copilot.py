@@ -11,17 +11,17 @@ import os
 
 load_dotenv()
 
-EMAIL = os.getenv("email")
-PASSWORD = os.getenv("password")
+EMAIL = os.getenv(key="email")
+PASSWORD = os.getenv(key="password")
 
 nb_requêtes = 5
 
 opts = wd.FirefoxOptions()
-opts.set_preference("dom.popup_maximum", nb_requêtes)
+opts.set_preference(name="dom.popup_maximum", value=nb_requêtes)
 driver = wd.Firefox(options=opts)
 URL_copilot = "https://www.office.com/chat?auth=2"
 
-driver.get(URL_copilot)
+driver.get(url=URL_copilot)
 
 EMAIL_ZONE_XPATH = """//*[@id="i0116"]"""
 PASSWORD_ZONE_XPATH = """//*[@id="i0118"]"""
@@ -30,14 +30,14 @@ ZONE_TEXTE_XPATH = """//*[@id="m365-chat-editor-target-element"]"""
 PROMPT_LIBRARY_XPATH = """/html/body/div[1]/div/div/div/div[1]/div/div/\
     div/div[1]/div[3]/div/button"""
 
-EMAIL_ZONE = WebDriverWait(driver, 60).until(
-        EC.visibility_of_element_located((
+EMAIL_ZONE = WebDriverWait(driver=driver, timeout=60).until(
+        method=EC.visibility_of_element_located(locator=(
             By.XPATH, EMAIL_ZONE_XPATH)))
 EMAIL_ZONE.send_keys(EMAIL)
 EMAIL_ZONE.send_keys(Keys.RETURN)
 
-PASSWORD_ZONE = WebDriverWait(driver, 60).until(
-        EC.visibility_of_element_located((
+PASSWORD_ZONE = WebDriverWait(driver=driver, timeout=60).until(
+        method=EC.visibility_of_element_located(locator=(
             By.XPATH, PASSWORD_ZONE_XPATH)))
 PASSWORD_ZONE.send_keys(PASSWORD)
 PASSWORD_ZONE.send_keys(Keys.RETURN)
@@ -58,17 +58,17 @@ YES.click()
 
 for i in range(nb_requêtes):
 
-    driver.execute_script("window.scrollTo(0, 0);")
+    driver.execute_script(script="window.scrollTo(0, 0);")
 
     onglets = driver.window_handles
-    driver.switch_to.window(onglets[i])
+    driver.switch_to.window(window_name=onglets[i])
 
     #  N'arrive pas détecter la zone de texte
-    ZONE_TEXTE = WebDriverWait(driver, 60).until(
-        EC.visibility_of_element_located((
+    ZONE_TEXTE = WebDriverWait(driver=driver, timeout=60).until(
+        method=EC.visibility_of_element_located(locator=(
             By.XPATH, ZONE_TEXTE_XPATH)))
 
-    name = r.choice(personnes)
+    name = r.choice(seq=personnes)
     question = f"What's the latest from {name}, \
         organized by emails, chats, and files?"
 
