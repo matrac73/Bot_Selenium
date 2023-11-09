@@ -2,3 +2,5 @@ geckodriver.log
 .DS_Store
 __pychache__
 bots/Agent_Smith/__pycache__/data_partners.cpython-311.pyc
+.env
+bots/365_Copilot/__pycache__/data_partners.cpython-311.pyc
