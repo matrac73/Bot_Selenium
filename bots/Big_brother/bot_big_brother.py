@@ -3,7 +3,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from data_partners import personnes
+from data_team_coeur import personnes
 import random as r
 import time as t
 from dotenv import load_dotenv
@@ -19,16 +19,16 @@ nb_requêtes = 5
 opts = wd.FirefoxOptions()
 opts.set_preference(name="dom.popup_maximum", value=nb_requêtes)
 driver = wd.Firefox(options=opts)
-URL_copilot = "https://www.office.com/chat?auth=2"
+URL = "https://www.office.com/chat?auth=2"
 
-driver.get(url=URL_copilot)
+driver.get(url=URL)
 
 EMAIL_ZONE_XPATH = """//*[@id="i0116"]"""
 PASSWORD_ZONE_XPATH = """//*[@id="i0118"]"""
 YES_XPATH = """//*[@id="idSIButton9"]"""
 ZONE_TEXTE_XPATH = """//*[@id="m365-chat-editor-target-element"]"""
-PROMPT_LIBRARY_XPATH = """/html/body/div[1]/div/div/div/div[1]/div/div/\
-    div/div[1]/div[3]/div/button"""
+IFRAME_XPATH = """//*[@id="officeHome__content"]/ohp-m365-apps-host/\
+div/m365-apps-host/div/div/div/iframe"""
 
 EMAIL_ZONE = WebDriverWait(driver=driver, timeout=60).until(
         method=EC.visibility_of_element_located(locator=(
@@ -63,7 +63,12 @@ for i in range(nb_requêtes):
     onglets = driver.window_handles
     driver.switch_to.window(window_name=onglets[i])
 
-    #  N'arrive pas détecter la zone de texte
+    iframe = WebDriverWait(driver=driver, timeout=60).until(
+        method=EC.visibility_of_element_located(locator=(
+            By.XPATH, IFRAME_XPATH)))
+
+    driver.switch_to.frame(iframe)
+
     ZONE_TEXTE = WebDriverWait(driver=driver, timeout=60).until(
         method=EC.visibility_of_element_located(locator=(
             By.XPATH, ZONE_TEXTE_XPATH)))
@@ -80,7 +85,7 @@ for i in range(nb_requêtes):
 
     if i+1 != nb_requêtes:
         driver.execute_script(
-            "window.open('https://websearcher-dev.azurewebsites.net/', \
+            "window.open('" + URL + "', \
                 '_blank');"
             )
     else:
