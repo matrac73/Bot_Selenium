@@ -14,7 +14,9 @@ load_dotenv()
 EMAIL = os.getenv(key="email")
 PASSWORD = os.getenv(key="password")
 
-nb_requêtes = 5
+nb_requêtes = len(personnes)
+personnes_mix = personnes.copy()
+r.shuffle(personnes_mix)
 
 opts = wd.FirefoxOptions()
 opts.set_preference(name="dom.popup_maximum", value=nb_requêtes)
@@ -73,9 +75,10 @@ for i in range(nb_requêtes):
         method=EC.visibility_of_element_located(locator=(
             By.XPATH, ZONE_TEXTE_XPATH)))
 
-    name = r.choice(seq=personnes)
-    question = f"What's the latest from {name}, \
-        organized by emails, chats, and files?"
+    name = personnes_mix[i]
+
+    question = f"Quelles sont les dernières nouvelles de {name}, \
+    organisées par e-mails, discussions et fichiers ?"
 
     print(f"Question {i+1}/{nb_requêtes} : {question}")
 
