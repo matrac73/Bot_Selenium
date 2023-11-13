@@ -59,6 +59,7 @@ YES = WebDriverWait(driver, 60).until(
 YES.click()
 
 for i in range(nb_requêtes):
+    t.sleep(3)
 
     driver.execute_script(script="window.scrollTo(0, 0);")
 
@@ -78,7 +79,7 @@ for i in range(nb_requêtes):
     name = personnes_mix[i]
 
     question = f"Quelles sont les dernières nouvelles de {name}, \
-    organisées par e-mails, discussions et fichiers ?"
+organisées par e-mails, discussions et fichiers ?"
 
     print(f"Question {i+1}/{nb_requêtes} : {question}")
 
@@ -93,5 +94,3 @@ for i in range(nb_requêtes):
             )
     else:
         driver.execute_script("window.scrollTo(0, 0);")
-
-    t.sleep(1)
