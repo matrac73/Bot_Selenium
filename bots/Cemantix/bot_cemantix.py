@@ -13,8 +13,8 @@ champ_lexical_URL = "https://www.rimessolides.com/motscles.aspx?m=s%C3%A9mantiqu
 driver.get(cemantix_URL)
 popup = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, """//*[@id="dialog-close"]""")))
 popup.click()
-driver.execute_script("window.open('');") 
-driver.switch_to.window(driver.window_handles[1]) 
+driver.execute_script("window.open('');")
+driver.switch_to.window(driver.window_handles[1])
 driver.get(champ_lexical_URL)
 
 driver.switch_to.window(driver.window_handles[0])
@@ -29,7 +29,6 @@ for m in liste_mots:
 
 while True:
 
-    
     best_mot = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, """/html/body/article/table/tbody/tr[3]/td[2]"""))).text
     print(f"best_mot = {best_mot}")
 
@@ -40,15 +39,15 @@ while True:
     recherche.send_keys(best_mot)
     recherche.send_keys(Keys.RETURN)
 
-    try :
+    try:
         mot_du_champ_lexical = WebDriverWait(driver, 3).until(EC.visibility_of_element_located((By.XPATH, """/html/body/form/div[4]/div/div[1]/div[2]/div/main/div/span[1]/a"""))).text
-    except :
+    except:
         mot_du_champ_lexical = WebDriverWait(driver, 3).until(EC.visibility_of_element_located((By.XPATH, """/html/body/form/div[4]/div/div[1]/div[2]/div/main/div/div[2]/a"""))).text
 
     print(f"mot_du_champ_lexical = {mot_du_champ_lexical}")
 
     driver.switch_to.window(driver.window_handles[0])
-    
+
     guess.send_keys(mot_du_champ_lexical)
     send.click()
     guess.send_keys("mot")
