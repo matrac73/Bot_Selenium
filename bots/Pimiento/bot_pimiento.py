@@ -17,7 +17,7 @@ def mots_similaires(mots, liste_mots, topn=10):
             similaires = model.most_similar(mot, topn=topn)
             mots_similaires.append([sim for sim in similaires if sim[0] not in liste_mots])
         else:
-            mots_similaires.append([(mot, 1.0)])
+            mots_similaires.append([(mot, 1.0)])  # Ajouter le mot lui-même s'il n'est pas trouvé
     return mots_similaires
 
 
