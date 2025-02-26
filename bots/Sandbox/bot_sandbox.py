@@ -1,8 +1,9 @@
 from selenium import webdriver as wd
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
+
+# from selenium.webdriver.support.ui import WebDriverWait
+# from selenium.webdriver.support import expected_conditions as EC
+# from selenium.webdriver.common.keys import Keys
+# from selenium.webdriver.common.by import By
 
 driver = wd.Firefox()
 URL = "https://www.interphex.com/en-us/show-info/exhibitor-list.html?refinementList%5B0%5D%5B0%5D=exhibitorFilters.Product%20Categories.lvl0%3Aid-681441&refinementList%5B0%5D%5B1%5D=exhibitorFilters.Product%20Categories.lvl0%3Aid-681634#/"
